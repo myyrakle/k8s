@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-server
+spec:
+  replica: 3
+  template: 
+    spec: 
+      containers: 
+        - name: test-server
+          image: myyrakle/node-server-for-test

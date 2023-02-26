@@ -9,14 +9,16 @@ spec:
   selector:
     matchLabels:
       name: test-daemon
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
   template:
     metadata:
       labels:
         name: test-daemon
     spec:
       tolerations:
-      # 이 톨러레이션(toleration)은 데몬셋이 컨트롤 플레인 노드에서 실행될 수 있도록 만든다.
-      # 컨트롤 플레인 노드가 이 파드를 실행해서는 안 되는 경우, 이 톨러레이션을 제거한다.
       - key: node-role.kubernetes.io/control-plane
         operator: Exists
         effect: NoSchedule
@@ -26,6 +28,7 @@ spec:
       containers:
       - name: test-daemon
         image: myyrakle/node-daemon-for-test
+        imagePullPolicy: Always
         resources:
           limits:
             memory: 200Mi

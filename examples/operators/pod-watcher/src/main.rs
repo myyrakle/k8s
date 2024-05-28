@@ -1,3 +1,5 @@
+mod server;
+
 use std::pin::pin;
 
 use futures::TryStreamExt;
@@ -19,6 +21,8 @@ async fn main() -> anyhow::Result<()> {
     let stream = watcher(pods, Config::default()).applied_objects();
     let mut pinned_stream = pin!(stream);
 
+    server::run_server();
+    
     while let Some(event) = pinned_stream.try_next().await? {
         let pod_name = event.name_any();
 

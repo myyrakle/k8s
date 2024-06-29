@@ -5,11 +5,11 @@ metadata:
 spec:
   storageClassName: nfs
   capacity:
-    storage: 50Gi
+    storage: 50Gi # 용량
   volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: 192.168.1.200 # NFS 서버의 IP
+    server: 192.168.1.2 # NFS 서버의 IP
     path: /home/nfs
